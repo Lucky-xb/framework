@@ -8,10 +8,12 @@ export class ConfigModel extends BaseIns {
 
 	private _cfgDic = {};
 
+	/** lang.xlsx */
 	public get lang() {
 		return this._cfgDic["Lang"];
 	}
 
+	/** window.xlsx */
 	public get window() {
 		return this._cfgDic["Window"];
 	}

@@ -47,7 +47,7 @@ def packExcel():
             jsonData = '{%s}' % jsonData.strip(jsonData[-1])
             writeToFile(getPath('jsonDir') + sheetName + '.json', jsonData)
             # 编写model数据
-            modelStr += writeModel(sheetName)
+            modelStr += writeModel(sheetName, excel)
             print(sheetName)
             nums = nums + 1
 
@@ -103,10 +103,11 @@ def writeModelStart():
     tsStr += '\tprivate _cfgDic = {};\n\n'
     return tsStr
 
-def writeModel(sheetName):
+def writeModel(sheetName, excel):
     tsStr = ''
     funName = getFunName(sheetName)
     name = getClassName(sheetName)
+    tsStr += '\t/** %s */\n' % excel
     tsStr += '\tpublic get %s() {\n' % funName
     tsStr += '\t\treturn this._cfgDic["%s"];\n' % name
     tsStr += '\t}\n\n'
