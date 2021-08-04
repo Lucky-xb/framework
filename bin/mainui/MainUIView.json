@@ -1,0 +1,1 @@
+{"type":"Scene","props":{},"compId":2,"child":[{"type":"Image","props":{"var":"img","skin":"mainui/bg_10004.jpg"},"compId":3}],"loadList":["mainui/bg_10004.jpg"],"loadList3D":[]}
