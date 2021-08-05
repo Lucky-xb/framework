@@ -3,12 +3,12 @@
  * @Author: zwb 
  * @Date: 2021-08-02 15:47:52 
  * @Last Modified by: zwb
- * @Last Modified time: 2021-08-03 10:13:05
+ * @Last Modified time: 2021-08-05 15:55:25
  */
 import { BaseIns } from "../base/BaseIns";
 import { MainUIView } from "../MainUIView";
 import { Model } from "../model/Model";
-import { Mgr } from "./Mgr";
+import { Utils } from "../utils/Utils";
 
 export class LoadMgr extends BaseIns {
 
@@ -52,7 +52,7 @@ export class LoadMgr extends BaseIns {
         //加载IDE指定的场景
         // GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
         
-        // let view = new MainUIView();
+        let view = new MainUIView();
         // Mgr.layer.addChild(view, LayerName.bgLayer);
     }
 }

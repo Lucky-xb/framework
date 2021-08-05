@@ -6,21 +6,21 @@ export class ConfigModel extends BaseIns {
 		return super.ins as ConfigModel;
 	}
 
-	private _cfgDic = {};
+	private _cfgMap = {};
 
 	/** lang.xlsx */
 	public get lang() {
-		return this._cfgDic["Lang"];
+		return this._cfgMap["Lang"];
 	}
 
 	/** window.xlsx */
 	public get window() {
-		return this._cfgDic["Window"];
+		return this._cfgMap["Window"];
 	}
 
 	public parseCfg(data: any): void {
 		for (let k in data) {
-			this._cfgDic[k] = data[k];
+			this._cfgMap[k] = data[k];
 		}
 	}
 }

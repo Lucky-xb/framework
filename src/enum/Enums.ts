@@ -1,5 +1,5 @@
 /** 层级名 */
-enum LayerName {
+export enum LayerName {
     /** 背景层 */
     bgLayer = 'bgLayer',
     /** 视图层 */

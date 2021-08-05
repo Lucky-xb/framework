@@ -1,8 +1,9 @@
 import { BaseView } from "./base/BaseView";
+import { Utils } from "./utils/Utils";
 
 export class MainUIView extends BaseView {
 
-    public readonly hashCode: number;
+    public className: string = 'MainUIView';
 
     private img: Laya.Image;
 
@@ -22,6 +23,7 @@ export class MainUIView extends BaseView {
     public constructor() {
         super();
         this.loadScene('mainui/MainUIView.scene');
+        this.hashCode = Utils.hash.hashCode('MainUIView');
     }
 
     protected createChildren(): void {

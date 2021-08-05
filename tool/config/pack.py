@@ -100,7 +100,7 @@ def writeModelStart():
     tsStr += '\tpublic static get ins(): ConfigModel {\n'
     tsStr += '\t\treturn super.ins as ConfigModel;\n'
     tsStr += '\t}\n\n'
-    tsStr += '\tprivate _cfgDic = {};\n\n'
+    tsStr += '\tprivate _cfgMap = {};\n\n'
     return tsStr
 
 def writeModel(sheetName, excel):
@@ -109,14 +109,14 @@ def writeModel(sheetName, excel):
     name = getClassName(sheetName)
     tsStr += '\t/** %s */\n' % excel
     tsStr += '\tpublic get %s() {\n' % funName
-    tsStr += '\t\treturn this._cfgDic["%s"];\n' % name
+    tsStr += '\t\treturn this._cfgMap["%s"];\n' % name
     tsStr += '\t}\n\n'
     return tsStr
 
 def writeModelEnd():
     tsStr = '\tpublic parseCfg(data: any): void {\n'
     tsStr += '\t\tfor (let k in data) {\n'
-    tsStr += '\t\t\tthis._cfgDic[k] = data[k];\n'
+    tsStr += '\t\t\tthis._cfgMap[k] = data[k];\n'
     tsStr += '\t\t}\n\t}\n}'
     return tsStr
 
