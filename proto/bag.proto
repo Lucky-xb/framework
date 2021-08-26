@@ -1,0 +1,9 @@
+// 如果使用此注释，则使用proto3; 否则使用proto2
+syntax = "proto3";
+
+package bag;
+
+message BagDto{
+	required string id = 1;
+	required string params = 2;
+}
