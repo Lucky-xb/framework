@@ -1,11 +1,13 @@
 /*
+ * 网络管理
  * @Author: zwb 
  * @Date: 2021-06-28 15:59:31 
  * @Last Modified by: zwb
- * @Last Modified time: 2021-08-26 11:58:33
+ * @Last Modified time: 2021-08-30 14:17:58
  */
 import { INetMgr } from "../interface/INetMgr";
 import { BaseIns } from "../base/BaseIns";
+import { Utils } from "../utils/Utils";
 
 export class NetMgr extends BaseIns implements INetMgr {
 
@@ -20,6 +22,7 @@ export class NetMgr extends BaseIns implements INetMgr {
     public init() {
         // this.createHttp();
         this.createSocket();
+        this.createByte();
     }
 
     private createHttp() {
@@ -47,10 +50,12 @@ export class NetMgr extends BaseIns implements INetMgr {
         console.log(msg);
     }
 
-    private createSocket() {
+    private createByte() {
         this._byte = new Laya.Byte();
         this._byte.endian = Laya.Byte.LITTLE_ENDIAN;
+    }
 
+    private createSocket() {
         this._socket = new Laya.Socket();
         let so = this._socket;
         so.connectByUrl('ws://45.76.111.94:9000');

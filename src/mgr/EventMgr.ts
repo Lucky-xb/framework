@@ -1,8 +1,9 @@
 /*
+ * 事件管理
  * @Author: zwb 
  * @Date: 2021-06-28 15:32:59 
  * @Last Modified by: zwb
- * @Last Modified time: 2021-08-05 16:14:26
+ * @Last Modified time: 2021-08-26 14:59:41
  */
 import { IEventMgr } from "../interface/IEventMgr";
 import { BaseIns } from "../base/BaseIns";

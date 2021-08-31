@@ -1,8 +1,9 @@
 /*
+ * 音效管理
  * @Author: zwb 
  * @Date: 2021-06-28 15:57:43 
  * @Last Modified by: zwb
- * @Last Modified time: 2021-06-29 11:50:00
+ * @Last Modified time: 2021-08-26 15:01:56
  */
 import { ISoundMgr } from "../interface/ISoundMgr";
 import { BaseIns } from "../base/BaseIns";

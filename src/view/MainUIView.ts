@@ -1,5 +1,6 @@
-import { BaseView } from "./base/BaseView";
-import { Utils } from "./utils/Utils";
+import { BaseView } from "../base/BaseView";
+import { Mgr } from "../mgr/Mgr";
+import { Utils } from "../utils/Utils";
 
 export class MainUIView extends BaseView {
 
@@ -23,10 +24,11 @@ export class MainUIView extends BaseView {
     public constructor() {
         super();
         this.loadScene('mainui/MainUIView.scene');
-        this.hashCode = Utils.hash.hashCode('MainUIView');
+        this.hashCode = 'MainUIView';
     }
 
     protected createChildren(): void {
+        return;
         this.on('onViewCreated', this, this.onViewCreated);
 
         this._ske = new Laya.Skeleton();
@@ -264,7 +266,6 @@ export class MainUIView extends BaseView {
         this.move(this._points);
     }
 }
-// Laya.ClassUtils.regClass('MainUIView', MainUIView);
 
 enum Action {
     /** 投掷 */

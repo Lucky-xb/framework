@@ -13,5 +13,7 @@ export interface ILangCfg extends ICfg {
 export interface IWindowCfg extends ICfg {
 	/** 名称 */
 	name: string;
+	/** 功能名 */
+	funName: string;
 }
 

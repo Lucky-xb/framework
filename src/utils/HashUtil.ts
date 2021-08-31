@@ -3,7 +3,7 @@
  * @Author: zwb 
  * @Date: 2021-08-05 12:27:03 
  * @Last Modified by: zwb
- * @Last Modified time: 2021-08-05 14:43:17
+ * @Last Modified time: 2021-08-30 15:45:27
  */
 export class HashUtil {
 
@@ -19,7 +19,7 @@ export class HashUtil {
         }
         if (this._hashMap[hash]) { 
             console.error(`已存在的哈希值：${str}`); 
-            return; 
+            return hash; 
         }
         this._hashMap[hash] = str;
         return hash;

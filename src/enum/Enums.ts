@@ -11,3 +11,9 @@ export enum LayerName {
     /** 顶层 */
     topLayer = 'topLayer',
 }
+
+/** 类名 */
+export enum ClassName {
+    /** 主界面 */
+    MainUIView = 'MainUIView',
+}
