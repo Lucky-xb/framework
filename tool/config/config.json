@@ -4,5 +4,5 @@
 	"libsDir": "../../libs/config.d.ts",
 	"jsonDir": "../../bin/config/",
 	"interfaceDir": "../../src/interface/IConfig.ts",
-	"modelDir": "../../src/model/ConfigModel.ts",
+	"modelDir": "../../src/model/ConfigModel.ts"
 }

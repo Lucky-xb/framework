@@ -3,7 +3,7 @@
  * @Author: zwb 
  * @Date: 2021-06-28 11:30:09 
  * @Last Modified by: zwb
- * @Last Modified time: 2021-08-31 10:26:20
+ * @Last Modified time: 2021-08-31 14:09:37
  */
 import { BaseIns } from "../base/BaseIns";
 import { Mgr } from "./Mgr";
@@ -19,9 +19,9 @@ export class ViewMgr extends BaseIns {
     }
 
     /** 已开启的视图 */
-    private openViewMap: Map<string, any> = new Map();
+    private _openViewMap: Map<string, any> = new Map();
     /** 各个层级开启的视图 */
-    private layerMap: Map<string, string> = new Map();
+    private _layerMap: Map<string, string> = new Map();
 
     /**
      * 界面开启统一接口
@@ -41,16 +41,16 @@ export class ViewMgr extends BaseIns {
 
         // 同源互斥
         if (isMutex) {
-            let prevName = this.layerMap.get(layer);
+            let prevName = this._layerMap.get(layer);
             if (prevName) this.close(prevName);
         }
 
         let className = this.getClassName(idOrName);
-        let cls = Laya.ClassUtils.getClass(className);
-        let view = Laya.Pool.getItemByClass(className, cls);
+        let view = Utils.pool.pop(className);
         view.layer = layer;
-        this.openViewMap.set(view.hashCode, view);
-        this.layerMap.set(layer, className);
+        !view.hashCode && (view.hashCode = className);
+        this._openViewMap.set(view.hashCode, view);
+        this._layerMap.set(layer, className);
         Mgr.layer.addChild(view, layer);
 
         console.log(`open: ${className}`);
@@ -63,21 +63,23 @@ export class ViewMgr extends BaseIns {
     public close(idOrName: number | string): void {
         let className = this.getClassName(idOrName);
         let view = this.getClassByName(className);
+        if (!view) return;
         Utils.view.removeChild(view);
-        this.openViewMap.delete(view.hashCode);
-        this.layerMap.delete(view.layer);
-        this.recoverClass(view);
+        Utils.pool.push(view);
+        this._openViewMap.delete(view.hashCode);
+        this._layerMap.delete(view.layer);
 
         console.log(`close: ${className}`);
     }
 
     /** 关闭所有开启的界面 */
     public closeAll(): void {
-        this.openViewMap.forEach((val, key, map) => {
+        this._openViewMap.forEach((val, key, map) => {
             Utils.view.removeChild(val);
+            Utils.pool.push(val);
         });
-        this.openViewMap.clear();
-        this.layerMap.clear();
+        this._openViewMap.clear();
+        this._layerMap.clear();
     }
 
     /**
@@ -109,7 +111,7 @@ export class ViewMgr extends BaseIns {
      * @param layer 层级
      */
     public curLayerView(layer: string): any {
-        let className = this.layerMap.get(layer);
+        let className = this._layerMap.get(layer);
         if (!className) return null;
         let view = this.getClassByName(className);
         return view;
@@ -121,7 +123,7 @@ export class ViewMgr extends BaseIns {
      */
     public getClassByName(className: string): any {
         let hashCode = Utils.hash.hashCode(className) + '';
-        let view = this.openViewMap.get(hashCode);
+        let view = this._openViewMap.get(hashCode);
         return view;
     }
 
@@ -145,9 +147,5 @@ export class ViewMgr extends BaseIns {
             className = idOrName;
         }
         return className;
-    }
-
-    private recoverClass(view: any) {
-        Laya.Pool.recoverByClass(view);
     }
 }

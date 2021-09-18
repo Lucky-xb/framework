@@ -1,10 +1,11 @@
 import { Mgr } from "../mgr/Mgr";
 import { Utils } from "../utils/Utils";
 
-export class BaseView extends Laya.Scene {
+export class BaseView extends Laya.View {
 
     /** 哈希值 */
     private _hashCode: string;
+    
     /** 层级 */
     public layer: string;
 

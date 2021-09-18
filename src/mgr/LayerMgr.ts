@@ -5,7 +5,7 @@ import { BaseIns } from "../base/BaseIns";
  * @Author: zwb 
  * @Date: 2021-06-28 11:26:45 
  * @Last Modified by: zwb
- * @Last Modified time: 2021-08-02 16:01:34
+ * @Last Modified time: 2021-09-03 17:42:46
  */
 export class LayerMgr extends BaseIns implements ILayerMgr {
 
@@ -13,43 +13,46 @@ export class LayerMgr extends BaseIns implements ILayerMgr {
         return super.ins as LayerMgr;
     }
 
-    private container: Laya.Sprite;
+    private _container: Laya.Sprite;
     /** 背景层 */
-    private bgLayer: Laya.Sprite;
+    private _bgLayer: Laya.Sprite;
     /** 视图层 */
-    private viewLayer: Laya.Sprite;
+    private _viewLayer: Laya.Sprite;
     /** 弹窗层 */
-    private popupLayer: Laya.Sprite;
+    private _popupLayer: Laya.Sprite;
     /** 提示层 */
-    private tipLayer: Laya.Sprite;
+    private _tipLayer: Laya.Sprite;
     /** 最顶层 */
-    private topLayer: Laya.Sprite;
+    private _topLayer: Laya.Sprite;
 
     public init() {
-        this.container = new Laya.Sprite();
-        Laya.stage.addChild(this.container);
+        this._container = new Laya.Sprite();
+        Laya.stage.addChild(this._container);
 
-        this.bgLayer = new Laya.Sprite();
-        this.container.addChild(this.bgLayer);
+        this._bgLayer = new Laya.Sprite();
+        this._container.addChild(this._bgLayer);
 
-        this.viewLayer = new Laya.Sprite();
-        this.container.addChild(this.viewLayer);
+        this._viewLayer = new Laya.Sprite();
+        this._container.addChild(this._viewLayer);
 
-        this.popupLayer = new Laya.Sprite();
-        this.container.addChild(this.popupLayer);
+        this._popupLayer = new Laya.Sprite();
+        this._container.addChild(this._popupLayer);
 
-        this.tipLayer = new Laya.Sprite();
-        this.container.addChild(this.tipLayer);
+        this._tipLayer = new Laya.Sprite();
+        this._container.addChild(this._tipLayer);
 
-        this.topLayer = new Laya.Sprite();
-        this.container.addChild(this.topLayer);
+        this._topLayer = new Laya.Sprite();
+        this._container.addChild(this._topLayer);
+
+        Laya.stage.on(Laya.Event.RESIZE, this, this.resize);
     }
 
     public addChild(obj: Laya.Sprite, layer: string) {
-        this[`${layer}`].addChild(obj);
+        this[`_${layer}`].addChild(obj);
     }
 
     public resize() {
-
+        this._viewLayer.width = this._popupLayer.width = this._tipLayer.width = Laya.stage.designWidth;
+        this._viewLayer.height = this._popupLayer.height = this._tipLayer.height = Laya.stage.designHeight;
     }
 }

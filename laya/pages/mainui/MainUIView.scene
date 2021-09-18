@@ -1,19 +1,13 @@
 {
     "x":0,
-    "type":"Scene",
+    "type":"View",
     "selectedBox":2,
     "selecteID":3,
-    "searchKey":"Scene",
-    "referenceLines":[
-        {
-            "value":432,
-            "type":1,
-            "id":1
-        }],
-    "props":{"sceneWidth":720,"sceneHeight":1280,"sceneColor":"#ffffff"},
+    "searchKey":"View",
+    "props":{"width":720,"sceneWidth":720,"sceneHeight":1280,"sceneColor":"#000000","height":1280},
     "nodeParent":-1,
-    "maxID":24,
-    "label":"Scene",
+    "maxID":4,
+    "label":"View",
     "isOpen":true,
     "isDirectory":true,
     "isAniNode":true,

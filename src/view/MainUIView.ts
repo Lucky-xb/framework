@@ -17,6 +17,7 @@ export class MainUIView extends BaseView {
     private _points = [new Laya.Point(435, 650), new Laya.Point(255, 500), new Laya.Point(140, 560), new Laya.Point(143, 793)]
 
     private _node1: Laya.Sprite;
+    private _node3: Laya.Sprite;
 
     private _startX = 435;
     private _startY = 650;
@@ -24,24 +25,22 @@ export class MainUIView extends BaseView {
     public constructor() {
         super();
         this.loadScene('mainui/MainUIView.scene');
-        this.hashCode = 'MainUIView';
     }
 
     protected createChildren(): void {
-        return;
         this.on('onViewCreated', this, this.onViewCreated);
 
-        this._ske = new Laya.Skeleton();
-        this.addChild(this._ske);
-        this._ske.load('res/ske/Crew_02_1_ske_1.sk');
-        this._ske.pos(300, 800);
-        this._ske.scaleX = this._ske.scaleY = 0.5;
+        // this._ske = new Laya.Skeleton();
+        // this.addChild(this._ske);
+        // this._ske.load('res/ske/Crew_02_1_ske_1.sk');
+        // this._ske.pos(300, 800);
+        // this._ske.scaleX = this._ske.scaleY = 0.5;
 
-        this._ske2 = new Laya.Skeleton();
-        this.addChild(this._ske2);
-        this._ske2.load('res/ske/Crew_02_2_ske_1.sk');
-        this._ske2.pos(300, 800);
-        this._ske2.scaleX = this._ske2.scaleY = 0.5;
+        // this._ske2 = new Laya.Skeleton();
+        // this.addChild(this._ske2);
+        // this._ske2.load('res/ske/Crew_02_2_ske_1.sk');
+        // this._ske2.pos(300, 800);
+        // this._ske2.scaleX = this._ske2.scaleY = 0.5;
 
         // this._line = new Laya.Sprite();
         // this.addChild(this._line);
@@ -51,13 +50,21 @@ export class MainUIView extends BaseView {
         this._node1 = new Laya.Sprite();
         this.addChild(this._node1);
         this._node1.pos(425, 640);
+
+        this._node2 = new Laya.Sprite();
+        this.addChild(this._node2);
+        this._node2.pos(500, 640);
+
+        this._node3 = new Laya.Sprite();
+        this.addChild(this._node3);
     }
 
+    private _prevBody: Laya.RigidBody;
     private onViewCreated(): void {
         this.setChildIndex(this.img, 0)
 
         // this._ske.play(Action.casting, true)
-        this._ske2.play(Action.casting, true)
+        // this._ske2.play(Action.casting, true)
 
         // let l = new Laya.Sprite();
         // this.addChild(l)
@@ -66,18 +73,22 @@ export class MainUIView extends BaseView {
         let rb: Laya.RigidBody = this._node1.addComponent(Laya.RigidBody);
         rb.bullet = true;
         rb.type = 'static';
+        rb.gravityScale = 0;
+        rb.linearDamping = 30;
         let cc: Laya.CircleCollider = this._node1.addComponent(Laya.CircleCollider);
         cc.radius = 5;
         let preBody = rb;
 
         let width = 20, height = 1;
-        for (let i = 0; i < 5; i++) {
+        let len = 5;
+        for (let i = 0; i < len; i++) {
             let s = new Laya.Sprite();
             this.addChild(s);
             s.pivotX = s.pivotY = 0;
             s.pos(this._startX + i * width, this._startY)
             let r: Laya.RigidBody = s.addComponent(Laya.RigidBody);
             let b: Laya.BoxCollider = s.addComponent(Laya.BoxCollider);
+            r.linearDamping = 0.5;
             b.width = width;
             b.height = height;
             b.density = 20;
@@ -87,11 +98,25 @@ export class MainUIView extends BaseView {
             rj.otherBody = preBody;
             s.addComponentIntance(rj);
             preBody = r;
+            if (i == (len - 1)) {
+
+
+                this._node3.pos(this._startX + i * width, this._startY);
+                this._rb2 = this._node3.addComponent(Laya.RigidBody);
+                this._rb2.bullet = true;
+                let cc: Laya.CircleCollider = this._node3.addComponent(Laya.CircleCollider);
+                cc.radius = 5;
+                this._rj = new Laya.RevoluteJoint();
+                this._rj.otherBody = preBody;
+                this._node3.addComponentIntance(this._rj);
+                this._prevBody = this._rb2;
+            }
         }
 
         this.init();
     }
 
+    private _rj: Laya.RevoluteJoint;
     private init(): void {
         let points = []
         let point1 = new Laya.Point(435, 650) // 起点
@@ -125,25 +150,15 @@ export class MainUIView extends BaseView {
         img.pos(200, 1000)
         img.skin = 'res/ui/ui1.png'
         img.on(Laya.Event.CLICK, this, this.onImgClick)
-
-        // points.push(point1)
-        // points.push(point2)
-        // points.push(point3)
-        // points.push(point4)
-        // this.drawP(this._points)
-
-        // this.move(this._points);
     }
 
     private drawP(points): void {
-        let array = this.CreateBezierPoints(points, 60)
-        // console.log("array:", array)
-
-        let index = 0
-        //Laya.timer.loop()
-        Laya.timer.loop(1, this, function () {
+        let array = Utils.bezier.CreateBezierPoints(points, 30)
+        let index = 0;
+        let self = this;
+        Laya.timer.loop(1, this, function te() {
             if (index > array.length - 1) {
-                Laya.timer.clearAll(this)
+                Laya.timer.clear(self, te)
                 return;
             }
             if (!this._pointArr[index]) {
@@ -155,54 +170,7 @@ export class MainUIView extends BaseView {
 
             index++
         })
-        // Laya.timer.frameLoop(1, this, function () {
-        //     if (index > array.length - 1) {
-        //         Laya.timer.clearAll(this)
-        //         return;
-        //     }
-        //     // console.log("index:", index)
-        //     // console.log("index:", array[index])
-        //     if (!this._pointArr[index]) {
-        //         this._pointArr[index] = new Laya.Sprite();
-        //         this.addChild(this._pointArr[index])
-        //     }
-        //     this._pointArr[index].graphics.clear();
-        //     this._pointArr[index].graphics.drawCircle(array[index].x, array[index].y, 2, 'red');
-
-        //     index++
-        // })
     }
-
-    public CreateBezierPoints(anchorpoints, pointsAmount): Array<any> {
-        var points = [];
-        for (var i = 0; i < pointsAmount; i++) {
-            var point = this.MultiPointBezier(anchorpoints, i / pointsAmount);
-            points.push(point);
-        }
-        return points;
-    }
-
-    private MultiPointBezier(points, t): any {
-        let len: number = points.length;
-        let x: number = 0, y: number = 0;
-        for (let i: number = 0; i < len; i++) {
-            let point: any = points[i];
-            x += point.x * Math.pow((1 - t), (len - 1 - i)) * Math.pow(t, i) * (this.erxiangshi(len - 1, i));
-            y += point.y * Math.pow((1 - t), (len - 1 - i)) * Math.pow(t, i) * (this.erxiangshi(len - 1, i));
-        }
-        return { x: x, y: y };
-    }
-
-    private erxiangshi(start: number, end: number): number {
-        let cs: number = 1, bcs: number = 1;
-        while (end > 0) {
-            cs *= start;
-            bcs *= end;
-            start--;
-            end--;
-        }
-        return (cs / bcs);
-    };
 
     private onBeginHandler(e: Laya.Event): void {
         e.stopPropagation();
@@ -220,7 +188,6 @@ export class MainUIView extends BaseView {
     private onMoveHandler(e: Laya.Event): void {
         this.drapShape.x = e.stageX;
         this.drapShape.y = e.stageY;
-        console.log(e.stageX, e.stageY)
     }
 
     private onEndHandler(e: Laya.Event): void {
@@ -236,30 +203,132 @@ export class MainUIView extends BaseView {
     }
 
     private _arr = [];
+    private _prevPoint: any;
+    private _rb: Laya.RigidBody;
     private move(points): void {
-        this._arr = this.CreateBezierPoints(points, 30)
+        let num = 30;
+        this._prevPoint = points[0];
+        this._arr = Utils.bezier.CreateBezierPoints(points, num);
+        this.drawP(points)
         let i = 0;
-        // this._node1.pos(this._arr[i].x, this._arr[i].y);
-        this.play(i);
+        this._rb = this._node1.getComponent(Laya.RigidBody);
+        this._rb.type = 'dynamic';
+
+        let self = this;
+        let ti = function () {
+            i++;
+            if (!self._arr[i]) {
+                Laya.timer.clear(self, ti);
+
+                if (self.isFirst) self.playNext();
+                else self.playEnd();
+                return;
+            }
+            self.play(self._arr[i], self._rb);
+            self._prevPoint = self._arr[i];
+        }
+
+        Laya.timer.loop(50, this, ti);
+        ti();
     }
 
-    private play(i: number): void {
-        let rb: Laya.RigidBody = this._node1.getComponent(Laya.RigidBody);
-        // rb.type = 'dynamic'
-        // let F = 0.5;
-        // rb.applyForce({ x: 100, y: 100 }, F);
-        console.log(rb.getMass())
+    private isFirst = true;
+    private _points2 = [new Laya.Point(143, 793), new Laya.Point(255, 400), new Laya.Point(435, 500)];
+    private _points3 = [new Laya.Point(480, 400)];
+    private playNext() {
+        this.isFirst = false;
+        this.move(this._points2);
+    }
 
-        // let idx = i;
-        // if (idx > (this._arr.length - 1)) {
-        //     this._node1.pos(this._arr[i - 1].x, this._arr[i - 1].y)
-        //     return;
-        // }
+    private _node2: Laya.Sprite;
+    private play(nextPoint, rb): void {
+        let dx = Math.floor(nextPoint.x - this._prevPoint.x);
+        let dy = Math.floor(nextPoint.y - this._prevPoint.y);
 
-        // Laya.Tween.to(this._node1, { x: this._arr[i].x, y: this._arr[i].y }, 0.1, null, Laya.Handler.create(this, () => {
-        //     idx++;
-        //     this.play(idx);
-        // }))
+        let v = this.isFirst ? 1 : 1.3;
+        rb.linearVelocity = { x: dx * v, y: dy * v }
+    }
+
+    private playEnd() {
+        this._rb.type = 'static';
+
+
+        let points = [new Laya.Point(this._node3.x, this._node3.y), new Laya.Point(700, 400)];
+        this.pl(points)
+    }
+
+    private isOver = false;
+    private _rb2: Laya.RigidBody;
+    private _max: number = 65;
+    private _curX = 0;
+    private _curY = 0;
+    private _nextX = 0;
+    private _nextY = 0;
+    private _curI = 0;
+    private pl(points) {
+        let num = 30;
+        this._prevPoint = points[0];
+        this._arr = Utils.bezier.CreateBezierPoints(points, num);
+        this.drawP(points)
+        let i = 0;
+        this._rb2.type = 'dynamic';
+
+        let width = 20, height = 1;
+        let self = this;
+        let startX = 0, startY = 0;
+        let ti = function () {
+            i++;
+            if (!self._arr[i]) {
+                Laya.timer.clear(self, ti);
+                return;
+            }
+
+            let dis = 0;
+            let d = 0;
+            if (!self.isOver) {
+                dis = Utils.math.getDistance(self._node3.x, self._node3.y, self._node1.x, self._node1.y);
+                d = dis - self._max;
+                if (d >= 0) self.isOver = true;
+            }
+
+            // 线延长
+            if (self.isOver) {
+                self._curI = i;
+                Laya.timer.clear(self, ti);
+                self.ti2();
+                Laya.timer.loop(50, self, self.ti2);
+                return;
+            }
+
+            self.play(self._arr[i], self._rb2);
+            self._prevPoint = self._arr[i];
+        }
+
+        Laya.timer.loop(50, this, ti);
+        ti();
+    }
+
+    private ti2() {
+        this._rb2.type = 'staitc';
+        let width = 20, height = 1;
+
+        let s = new Laya.Sprite();
+        this.addChild(s);
+        s.pivotX = s.pivotY = 0;
+        s.pos(this._node3.x, this._node3.y)
+        let r: Laya.RigidBody = s.addComponent(Laya.RigidBody);
+        let b: Laya.BoxCollider = s.addComponent(Laya.BoxCollider);
+        r.linearDamping = 0.5;
+        r.type = 'static';
+        // b.width = d;
+        b.height = height;
+        b.density = 20;
+        b.friction = 0.2;
+        b.y = -height / 2;
+        let rj: Laya.RevoluteJoint = new Laya.RevoluteJoint();
+        rj.otherBody = this._prevBody;
+        s.addComponentIntance(rj);
+        this._prevBody = r;
     }
 
     private onImgClick(): void {
