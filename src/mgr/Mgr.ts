@@ -5,6 +5,7 @@ import { IResMgr } from "../interface/IResMgr";
 import { ISoundMgr } from "../interface/ISoundMgr";
 import { ITimerMgr } from "../interface/ITimerMgr";
 import { IUIMgr } from "../interface/IUIMgr";
+import { AdapterMgr } from "./AdapterMgr";
 import { EventMgr } from "./EventMgr";
 import { LayerMgr } from "./LayerMgr";
 import { LoadMgr } from "./LoadMgr";
@@ -22,7 +23,7 @@ import { ViewMgr } from "./ViewMgr";
  * @Author: zwb 
  * @Date: 2021-06-28 10:39:45 
  * @Last Modified by: zwb
- * @Last Modified time: 2021-08-30 14:49:33
+ * @Last Modified time: 2021-11-17 12:05:51
  */
 export class Mgr {
     /** 层级管理 */
@@ -47,4 +48,6 @@ export class Mgr {
     static readonly red: RedMgr = RedMgr.ins;
     /** ui管理 */
     static readonly ui: IUIMgr = UIMgr.ins;
+    /** 适配管理 */
+    static readonly adapter: AdapterMgr = AdapterMgr.ins;
 }

@@ -38,6 +38,12 @@ P 0587871F vscroll$up.png
 P 5FD17798 vscroll.png
 P DDDDFB9E vslider$bar.png
 P 01BAE7F5 vslider.png
+D login
+P 41315FBD btn_al_a10_cn.png
+P 4BEE5D93 btn_al_a7_cn.png
+P 8C58E333 btn_al_a9_cn.png
 D mainui
-R 3618F060 bg_10004.jpg
-R 364E3A76 img_cy_bg.jpg
+P 856D274B al_9G_b3.png
+P 52E83576 btn_cm_b29.png
+P D01E615C btn_cm_c11.png
+P FCDF2131 ui1.png

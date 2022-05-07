@@ -16,4 +16,8 @@ export enum LayerName {
 export enum ClassName {
     /** 主界面 */
     MainUIView = 'MainUIView',
+    /** 登录界面 */
+    LoginView = 'LoginView',
+    /** 游戏界面 */
+    GameView = 'GameView',
 }

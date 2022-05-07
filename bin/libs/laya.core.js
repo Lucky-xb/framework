@@ -12354,6 +12354,9 @@ window.Laya= (function (exports) {
     class ClassUtils {
         static regClass(className, classDef) {
             ClassUtils._classMap[className] = classDef;
+            if (classDef.name != className) {
+                ClassUtils._classMap[classDef.name] = className;
+            }
         }
         static regShortClassName(classes) {
             for (var i = 0; i < classes.length; i++) {
@@ -23589,7 +23592,10 @@ window.Laya= (function (exports) {
             if (view && !this._viewCreated) {
                 this._viewCreated = true;
                 SceneUtils.createByData(this, view);
+                this.onViewCreated();
             }
+        }
+        onViewCreated(){
         }
         getNodeByID(id) {
             if (this._idMap)

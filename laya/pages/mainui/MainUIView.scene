@@ -1,13 +1,13 @@
 {
     "x":0,
-    "type":"View",
-    "selectedBox":2,
-    "selecteID":3,
-    "searchKey":"View",
-    "props":{"width":720,"sceneWidth":720,"sceneHeight":1280,"sceneColor":"#000000","height":1280},
+    "type":"BaseView",
+    "selectedBox":6,
+    "selecteID":7,
+    "searchKey":"BaseView",
+    "props":{"width":720,"sceneColor":"#000000","height":1280},
     "nodeParent":-1,
-    "maxID":4,
-    "label":"View",
+    "maxID":13,
+    "label":"BaseView",
     "isOpen":true,
     "isDirectory":true,
     "isAniNode":true,
@@ -17,16 +17,102 @@
         {
             "x":15,
             "type":"Image",
-            "searchKey":"Image,img",
-            "props":{"var":"img","skin":"mainui/bg_10004.jpg"},
+            "searchKey":"Image,bg",
+            "props":{"var":"bg","skin":"res/img/bg/bg_10004.jpg"},
             "nodeParent":2,
-            "label":"img",
+            "label":"bg",
+            "isOpen":true,
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
             "compId":3,
             "child":[
                 ]
+        },
+        {
+            "x":15,
+            "type":"Box",
+            "searchKey":"Box,boxContent",
+            "props":{"y":0,"x":0,"width":720,"var":"boxContent","height":1280},
+            "nodeParent":2,
+            "label":"boxContent",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":10,
+            "child":[
+                {
+                    "x":30,
+                    "type":"List",
+                    "searchKey":"List,listContent",
+                    "props":{"y":20,"x":32,"width":658,"var":"listContent","spaceY":20,"repeatX":1,"height":1195,"elasticEnabled":true},
+                    "nodeParent":10,
+                    "label":"listContent",
+                    "isOpen":true,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":6,
+                    "child":[
+                        {
+                            "x":45,
+                            "type":"Box",
+                            "searchKey":"Box,render",
+                            "props":{"name":"render"},
+                            "nodeParent":6,
+                            "label":"render",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":false,
+                            "hasChild":true,
+                            "compId":7,
+                            "child":[
+                                {
+                                    "x":60,
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"y":0,"x":0,"width":650,"skin":"mainui/al_9G_b3.png","sizeGrid":"46,38,29,39","height":80},
+                                    "nodeParent":7,
+                                    "label":"Image",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":8,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Label",
+                                    "searchKey":"Label,lbDesc",
+                                    "props":{"y":9,"x":16,"wordWrap":true,"width":626,"text":"老家老三老家三扥老家","name":"lbDesc","height":64,"fontSize":25,"color":"#ee4b17"},
+                                    "nodeParent":7,
+                                    "label":"lbDesc",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":9,
+                                    "child":[
+                                        ]
+                                }]
+                        }]
+                },
+                {
+                    "x":30,
+                    "type":"Button",
+                    "searchKey":"Button,btn",
+                    "props":{"y":1181.5,"x":276,"var":"btn","stateNum":"1","skin":"mainui/btn_cm_b29.png"},
+                    "nodeParent":10,
+                    "label":"btn",
+                    "isOpen":true,
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":11,
+                    "child":[
+                        ]
+                }]
         }],
     "animations":[
         {

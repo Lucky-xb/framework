@@ -13,6 +13,11 @@ export class ConfigModel extends BaseIns {
 		return this._cfgMap["Lang"];
 	}
 
+	/** plot.xlsx */
+	public get plot() {
+		return this._cfgMap["Plot"];
+	}
+
 	/** window.xlsx */
 	public get window() {
 		return this._cfgMap["Window"];

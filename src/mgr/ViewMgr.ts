@@ -3,7 +3,7 @@
  * @Author: zwb 
  * @Date: 2021-06-28 11:30:09 
  * @Last Modified by: zwb
- * @Last Modified time: 2021-08-31 14:09:37
+ * @Last Modified time: 2022-01-11 15:21:50
  */
 import { BaseIns } from "../base/BaseIns";
 import { Mgr } from "./Mgr";
@@ -32,7 +32,7 @@ export class ViewMgr extends BaseIns {
      */
     public open(idOrName: number | string, layer: string = LayerName.viewLayer, isCloseOther: boolean = false, isMutex: boolean = true): void {
         if (this.isOpened(idOrName)) return;
-        if (typeof idOrName === 'number') { 
+        if (typeof idOrName === 'number') {
             if (!this.isOpenFunc(idOrName)) return;
         }
 
@@ -46,11 +46,12 @@ export class ViewMgr extends BaseIns {
         }
 
         let className = this.getClassName(idOrName);
+        let self = this;
         let view = Utils.pool.pop(className);
         view.layer = layer;
         !view.hashCode && (view.hashCode = className);
-        this._openViewMap.set(view.hashCode, view);
-        this._layerMap.set(layer, className);
+        self._openViewMap.set(view.hashCode, view);
+        self._layerMap.set(layer, className);
         Mgr.layer.addChild(view, layer);
 
         console.log(`open: ${className}`);
@@ -64,6 +65,7 @@ export class ViewMgr extends BaseIns {
         let className = this.getClassName(idOrName);
         let view = this.getClassByName(className);
         if (!view) return;
+        view.onClose();
         Utils.view.removeChild(view);
         Utils.pool.push(view);
         this._openViewMap.delete(view.hashCode);
@@ -75,6 +77,7 @@ export class ViewMgr extends BaseIns {
     /** 关闭所有开启的界面 */
     public closeAll(): void {
         this._openViewMap.forEach((val, key, map) => {
+            val.onClose();
             Utils.view.removeChild(val);
             Utils.pool.push(val);
         });

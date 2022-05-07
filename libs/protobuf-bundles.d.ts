@@ -1,4 +1,5 @@
 type Long = protobuf.Long;
+// DO NOT EDIT! This is a generated file. Edit the JSDoc in src/*.js instead and run 'npm run types'.
 
 /** Namespace activity. */
 declare namespace activity {
@@ -75,7 +76,7 @@ declare namespace activity {
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
-        public static verify(message: [ 'object' ].<string, any>): (string|null);
+        public static verify(message: { [k: string]: any }): (string|null);
     }
 }
 
@@ -154,7 +155,7 @@ declare namespace bag {
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
-        public static verify(message: [ 'object' ].<string, any>): (string|null);
+        public static verify(message: { [k: string]: any }): (string|null);
     }
 }
 
@@ -233,6 +234,6 @@ declare namespace login {
          * @param message Plain object to verify
          * @returns `null` if valid, otherwise the reason why it is not
          */
-        public static verify(message: [ 'object' ].<string, any>): (string|null);
+        public static verify(message: { [k: string]: any }): (string|null);
     }
 }

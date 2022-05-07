@@ -10,10 +10,10 @@ export default class GameConfig{
     static screenMode:string="vertical";
     static alignV:string="top";
     static alignH:string="left";
-    static startScene:any="mainui/MainUIView.scene";
+    static startScene:any="game/GameView.scene";
     static sceneRoot:string="";
     static debug:boolean=false;
-    static stat:boolean=false;
+    static stat:boolean=true;
     static physicsDebug:boolean=true;
     static exportSceneToJson:boolean=true;
     constructor(){}

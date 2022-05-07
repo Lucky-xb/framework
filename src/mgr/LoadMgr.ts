@@ -3,7 +3,7 @@
  * @Author: zwb 
  * @Date: 2021-08-02 15:47:52 
  * @Last Modified by: zwb
- * @Last Modified time: 2021-08-31 16:43:58
+ * @Last Modified time: 2022-01-13 15:23:36
  */
 import { BaseIns } from "../base/BaseIns";
 import { ClassName, LayerName } from "../enum/Enums";
@@ -21,7 +21,7 @@ export class LoadMgr extends BaseIns {
     public init() {
         this.loadCfg();
         this.loadRes();
-        this.loadVer();
+        // this.loadVer();
     }
 
     /** 加载配置表数据 */
@@ -36,11 +36,14 @@ export class LoadMgr extends BaseIns {
 
     /** 加载资源 */
     private loadRes() {
-
+        Laya.loader.load('ui.json', Laya.Handler.create(this, this.loadVer), null, Laya.Loader.JSON);
     }
 
     /** 加载版本 */
     private loadVer() {
+        let uiUrl: string = `ui.json`;
+        let res: any = Laya.loader.getRes(uiUrl);
+        if (res) Laya.View.uiMap = res;
         //激活资源版本控制，version.json由IDE发布功能自动生成，如果没有也不影响后续流程
         Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
     }
@@ -54,6 +57,6 @@ export class LoadMgr extends BaseIns {
         //加载IDE指定的场景
         // GameConfig.startScene && Laya.Scene.open(GameConfig.startScene);
 
-        Mgr.view.open(ClassName.MainUIView);
+        Mgr.view.open(ClassName.GameView);
     }
 }
