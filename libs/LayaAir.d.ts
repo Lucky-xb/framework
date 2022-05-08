@@ -32730,7 +32730,12 @@ declare module laya.ui {
 		protected addEvent(type: string, listener: Function, args?: Array<any>): void;
 		protected clearRecover(target: (Laya.List | Laya.Tab | Laya.ComboBox)[]): void;
 		protected onHide(): void;
+		/** 统一添加事件侦听 */
+		protected onEvent(): void;
+		/** 初始化显示 */
 		protected onShow(): void;
+		/** 初始化数据 */
+		protected onData(): void;
 		protected onResize(): void;
 		protected onHelp(): void;
 		protected onBack(): void;

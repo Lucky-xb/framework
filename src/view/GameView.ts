@@ -1,4 +1,3 @@
-import { BaseView } from "../base/BaseView";
 import { ui } from "../ui/layaMaxUI";
 
 export class GameView extends ui.game.GameViewUI {
@@ -7,6 +6,21 @@ export class GameView extends ui.game.GameViewUI {
 
     public constructor() {
         super();
-        // this.loadScene('game/GameView.scene');
+    }
+
+    protected onEvent(): void {
+        
+    }
+
+    protected onData(): void {
+        
+    }
+
+    protected onShow(): void {
+        
+    }
+
+    protected onClick(event: Laya.Event): void {
+        
     }
 }

@@ -159,7 +159,13 @@
         onResize() {
             this.mediator ? this.mediator.onResize() : null;
         }
+        onEvent() {
+
+        }
         onShow() {
+
+        }
+        onData() {
 
         }
         onHide() {
@@ -218,6 +224,8 @@
             // this.stage.on(Laya.Event.RESIZE, this, this.onResize);
             this.mediator ? this.mediator.onShow() : null;
             this.playPopEffect(true);
+            this.onEvent();
+            this.onData();
             this.onShow();
         }
         onRemove() {
@@ -233,7 +241,6 @@
     BaseView.helpHandle = null;
     BaseView.GAction = null;
     BaseView.dispatcher = null;
-    BaseView.clickHandle = null;
     BaseView.clickHandle = null;
     BaseView.adaptOffsetY = null;
     Laya.ClassUtils.regClass("laya.ui.BaseView", BaseView);
