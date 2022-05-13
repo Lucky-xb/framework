@@ -301,10 +301,32 @@
     }
 
     class ParamMgr extends BaseIns {
+        constructor() {
+            super(...arguments);
+            this.urlParam = {};
+        }
         static get ins() {
             return super.ins;
         }
         init() {
+            let url = window["url"];
+            this.urlParam = this.getUrlParam(url);
+        }
+        getUrlParam(url) {
+            let urlParam = {};
+            if (!url)
+                return {};
+            let whIdx = url.indexOf("?");
+            if (whIdx != -1) {
+                let params = url.slice(whIdx + 1).split("&");
+                for (let i = 0; i < params.length; i++) {
+                    if (params[i] == "")
+                        continue;
+                    let strs = params[i].split("=");
+                    urlParam[strs[0]] = strs[1];
+                }
+            }
+            return urlParam;
         }
     }
 
@@ -362,6 +384,15 @@
     (function (ui) {
         var game;
         (function (game) {
+            class GameItemUI extends Laya.BaseView {
+                constructor() { super(); }
+                createChildren() {
+                    super.createChildren();
+                    this.loadScene("game/GameItem");
+                }
+            }
+            game.GameItemUI = GameItemUI;
+            REG("ui.game.GameItemUI", GameItemUI);
             class GameViewUI extends Laya.BaseView {
                 constructor() { super(); }
                 createChildren() {
@@ -406,6 +437,15 @@
         constructor() {
             super();
             this.className = 'GameView';
+        }
+        onEvent() {
+        }
+        onData() {
+        }
+        onShow() {
+        }
+        onClick(e) {
+            super.onClick(e);
         }
     }
 
@@ -1216,6 +1256,7 @@
             if (GameConfig.stat)
                 Laya.Stat.show();
             Laya.alertGlobalError = true;
+            Mgr.param.init();
             Mgr.adapter.init();
             Mgr.ui.register();
             Mgr.layer.init();

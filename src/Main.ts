@@ -16,6 +16,7 @@ class Main {
 		if (GameConfig.stat) Laya.Stat.show();
 		Laya.alertGlobalError = true;
 
+		Mgr.param.init();
 		Mgr.adapter.init();
 		Mgr.ui.register();
 		Mgr.layer.init();

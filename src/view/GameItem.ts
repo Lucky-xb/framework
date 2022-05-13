@@ -1,11 +1,15 @@
 import { ui } from "../ui/layaMaxUI";
 
-export class GameView extends ui.game.GameViewUI {
+export class GameItem extends ui.game.GameItemUI {
 
-    public className: string = 'GameView';
+    public className: string = 'GameItem';
 
     public constructor() {
         super();
+    }
+
+    public set dataSource(value: any) {
+        
     }
 
     protected onEvent(): void {
@@ -18,9 +22,5 @@ export class GameView extends ui.game.GameViewUI {
 
     protected onShow(): void {
         
-    }
-
-    protected onClick(e: Laya.Event): void {
-        super.onClick(e);
     }
 }
