@@ -310,12 +310,20 @@
         }
         init() {
             let url = window["url"];
+            if (!url)
+                return;
             this.urlParam = this.getUrlParam(url);
+            console.log(this.ip);
+            console.log(this.port);
+        }
+        get ip() {
+            return window["host"];
+        }
+        get port() {
+            return window["port"];
         }
         getUrlParam(url) {
             let urlParam = {};
-            if (!url)
-                return {};
             let whIdx = url.indexOf("?");
             if (whIdx != -1) {
                 let params = url.slice(whIdx + 1).split("&");
@@ -327,6 +335,9 @@
                 }
             }
             return urlParam;
+        }
+        isCloseGuide() {
+            return this.urlParam["g"] == "0" ? true : false;
         }
     }
 

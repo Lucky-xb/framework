@@ -19,6 +19,8 @@
 
 <body>
     <script type="text/javascript">
+        window["ip"] = window.location.hostname;
+        window["port"] = window.location.port;
         window["url"] = window.location.href;
         function loadLib(url) {
             var script = document.createElement("script");
